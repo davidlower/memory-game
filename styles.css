@@ -1,0 +1,126 @@
+* {
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+html {
+   --black: #2b3e4a;
+   --success: #1aeec8;
+   --fail: #24c1f2;
+   font-family: 'Raleway', sans-serif;
+   font-weight: 200;
+}
+
+body {
+   background-image: -webkit-gradient(linear, left top, right bottom, from(#00ceba), to(#b07ed0));
+   background-image: linear-gradient(to bottom right, #00ceba, #b07ed0);
+   background-repeat: no-repeat;
+}
+
+.body-wrapper {
+   width: 100%;
+   margin: 0 auto;
+   max-width: 960px;
+   position: relative;
+}
+
+h1 {
+   text-align: center;
+   font-size: 4rem;
+   color: white;
+   margin: 75px 0;
+   font-weight: 200;
+}
+
+.icons-container {
+   margin: 50px auto;
+   text-align: center;
+}
+
+ul {
+   width: 100%;
+   color: white;
+   font-size: 1.2rem;
+   list-style-type: none;
+   display: inline-block;
+}
+
+li {
+   margin: 0 70px 0 25px;
+   display: inline-block;
+}
+
+#refresh {
+   cursor: pointer;
+}
+
+/* MEMORY BOARD GAME AND CARDS */
+
+#memory-game-board {
+   display: grid;
+   grid-template-columns: repeat(4, minmax(180px, 220px));
+   grid-template-rows: repeat(4, minmax(180px, 220px));
+   grid-gap: 35px;
+   max-width: 960px;
+   padding: 30px;
+   margin: 75px auto;
+}
+
+.card {
+   position: relative;
+   -webkit-transform-style: preserve-3d;
+   transform-style: preserve-3d;
+   -webkit-transition: all 0.4s ease;
+   transition: transform 0.7s ease;
+}
+
+.card, .front, .back {
+   height: 100%;
+   width: 100%;
+   border-radius: 15px;
+   margin: 0 auto;
+   cursor: pointer;
+   background-color: var(--black);
+}
+
+.front, .back {
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+
+.back {
+   -webkit-backface-visibility: hidden;
+   backface-visibility: hidden;
+   -webkit-transform: rotateY(180deg);
+   transform: rotateY(180deg);
+}
+
+.front {
+   -webkit-backface-visibility: hidden;
+   backface-visibility: hidden;
+}
+
+.flip-hide {
+   background-color: var(--black);
+}
+
+.flip-show-success {
+   background-color: var(--success);
+}
+
+.flip-show-fail {
+   background-color: var(--fail);
+}
+
+#memory-game-board i {
+   font-size: 2.8rem;
+   color: white;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   -webkit-transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%);
+}
