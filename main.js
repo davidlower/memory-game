@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       [8, 'fa-key']
    ];
 
-
+   // VARIOUS VARIABLES
    var match = [];
    var item = [];
    var counter = 0;
@@ -52,20 +52,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
    }
    memoryGameBoard();
 
-   // FLIP CARD AND ASSIGNING A CLICK EVENT LISTENER
+   // FLIP CARD AND ASSIGNING A CLICK EVENT
    function flipCard() {
       gameBoard.addEventListener("click", function(e) {
          if (e.target.classList.contains("card")) {
             e.target.classList.add("selected");
-            // e.target.style.transform = "rotateY(180deg)";
             matchCards(e.target);
             timer();
          }
       });
    }
    flipCard();
-
-
 
    // CHECKING FOR MATCHED FLIPPED CARDS
    function matchCards(element) {
@@ -82,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
          moves++;
          console.log(moves);
          if (match[0] == match[1]) {
+            console.log("there is a match");
             setTimeout(function() {
                success();
             }, 500);
@@ -101,30 +99,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
    }
 
-
+   // FUNCTION WHEN CARDS MATCH
    function success() {
       var selected = document.querySelectorAll(".selected");
-      for (i = 0; i < 2; i++) {
-         selected[i].classList.add("success");
-      }
+      selected[0].classList.add("success");
+      selected[1].classList.add("success");
       setTimeout(function() {
          selected[0].classList.remove("selected");
          selected[1].classList.remove("selected");
       }, 1000);
    }
 
+   // FUNCTION WHEN CARDS FAIL TO MATCH
    function fail() {
       console.log("flipping you back");
       var selected = document.querySelectorAll(".selected");
-      for (i = 0; i < 2; i++) {
-         selected[i].classList.add("fail");
-      }
+      selected[0].classList.add("fail");
+      selected[1].classList.add("fail");
       setTimeout(function() {
          selected[0].classList.remove("fail", "selected");
          selected[1].classList.remove("fail", "selected");
       }, 1000);
    }
 
+   // FUNCTION FOR WHEN GAME IS COMPLETE AND MODAL POPS UP WITH CONGRATULATIONS
    function popupModal() {
       console.log("game has finished");
    }
