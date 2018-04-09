@@ -5,20 +5,20 @@
 }
 
 html {
-   --black: #2b3e4a;
+   --p-color: #2b3e4a;
+   --s-color: white;
    --success: #1aeec8;
-   --fail: #24c1f2;
-   --fail: #ff5885;
-   font-family: 'Raleway', sans-serif;
+   --fail: #fe2b64;
+   --font: 'Raleway', sans-serif;
+   font-family: var(--font);
    font-weight: 200;
 }
 
 body {
    background-image: linear-gradient(to bottom right, #00ceba, #b07ed0);
-   background-repeat: no-repeat;
 }
 
-.body-wrapper {
+#body-wrapper {
    position: relative;
 
    width: 100%;
@@ -26,20 +26,29 @@ body {
    margin: 0 auto;
 }
 
+/* ********************** TOP HERO SECTION - TITLE - TIMER - REFRESH ************************* */
+
 h1 {
    margin: 75px 0;
 
    text-align: center;
 
-   color: white;
+   color: var(--s-color);
 
    font-size: 4rem;
-   font-weight: 200;
+   font-weight: 500;
+   letter-spacing: 0.1px;
+
+}
+
+.letter-flip {
+   display: inline-block;
+   animation: letterflip 6s infinite;
+   transform-style: preserve-3d;
 }
 
 .icons-container {
    margin: 50px auto;
-
    text-align: center;
 }
 
@@ -47,25 +56,29 @@ ul {
    display: inline-block;
 
    width: 100%;
-
    list-style-type: none;
 
-   color: white;
+   color: var(--s-color);
 
    font-size: 1.2rem;
 }
 
 li {
    display: inline-block;
-
-   margin: 0 70px 0 25px;
+   width: 100px;
 }
 
 #refresh {
    cursor: pointer;
 }
 
-/* MEMORY BOARD GAME AND CARDS */
+.icons-container p {
+   font-weight: 200;
+   font-size: 0.9rem;
+   padding: 9px 0;
+}
+
+/* ********************** BOARD GAME SETUP ************************* */
 
 #memory-game-board {
    display: grid;
@@ -78,6 +91,8 @@ li {
    grid-template-rows: repeat(4, minmax(180px, 220px));
    grid-gap: 35px;
 }
+
+/* ********************** CARD STYLES ************************* */
 
 .card {
    position: relative;
@@ -94,15 +109,9 @@ li {
    transition: transform 0.7s ease;
 
    border-radius: 15px;
-   background-color: var(--black);
+   background-color: var(--p-color);
 
    transform-style: preserve-3d;
-}
-
-.back {
-   transform: rotateY(180deg);
-
-   backface-visibility: hidden;
 }
 
 .selected {
@@ -110,24 +119,24 @@ li {
 }
 
 .success {
-   animation: success 0.5s;
+   animation: success 0.3s;
 
    background-color: var(--success);
-   transform: rotateY(180deg);
+   transform: rotateY(-180deg);
 }
 
 .fail {
-   animation: fail 0.5s;
+   animation: fail 0.3s;
 
    background-color: var(--fail);
-   transform: rotateY(180deg);
 }
 
 .fail, .success {
-   animation-delay: 0.4s;
+   animation-delay: 0.3s;
    animation-iteration-count: 1;
 }
 
+/* ********************** ICON STYLES ************************* */
 
 #memory-game-board i {
    position: absolute;
@@ -136,14 +145,112 @@ li {
 
    transform: translate(-50%, -50%) rotateY(180deg);
 
-   color: white;
+   color: var(--s-color);
 
    font-size: 2.8rem;
 
    backface-visibility: hidden;
 }
 
-/* KEYFRAMES FOR VARIOUS ANIMATIONS */
+/* ********************** MODAL AND POPUP CONGRATULATION SCREEN ************************* */
+
+#modal-wrapper {
+   height: 100vh;
+   width: 100vw;
+   background-image: linear-gradient(to bottom right, #00ceba, #b07ed0);
+   text-align: center;
+   color: var(--s-color);
+   display: none;
+}
+
+.modal-container {
+   background-color: rgba(255, 255, 255, 0.3);
+   height: 80vh;
+   width: 80vw;
+   margin: 10vh auto;
+   position: relative;
+   border-radius: 25px;
+   animation: fadeout 0.9s;
+   animation-iteration-count: 1;
+}
+
+#close {
+   position: absolute;
+   color: var(--s-color);
+   top: 25px;
+   right: 25px;
+   font-size: 1.4rem;
+}
+
+#close:hover {
+   color: rgba(255, 255, 255, 0.3);
+   cursor: pointer;
+}
+
+#close:active {
+   transform: translateY(1px);
+}
+
+.modal-title {
+   margin: 0;
+   padding: 11% 0;
+   line-height: 1em;
+}
+
+.text-container {
+   position: absolute;
+   top: 47%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   line-height: 1.6em;
+}
+
+.strong {
+   color: var(--p-color);
+   font-weight: 500;
+}
+
+#btn {
+   margin: 13% 0;
+   padding: 15px 60px;
+   color: var(--s-color);
+   background-color: transparent;
+   border: solid 1px var(--s-color);
+   outline: none;
+   border-radius: 15px;
+   font-family: var(--font);
+   font-size: 1rem;
+   cursor: pointer;
+}
+
+#btn:hover {
+   color: var(--s-color);
+   background-color: rgba(255, 255, 255, 0.2);
+}
+
+#btn:active {
+   transform: translateY(1px);
+}
+
+/* ********************** KEYFRAMES AND ANIMATIONS ************************* */
+
+@keyframes letterflip {
+   0% {
+      transform: rotateY(0);
+   }
+   70% {
+      transform: rotateY(180deg);
+   }
+   80% {
+      transform: rotateY(180deg);
+      color: var(--p-color);
+   }
+   100% {
+      transform: rotateY(360deg);
+   }
+}
+
+
 
 @keyframes success {
    0% {
@@ -156,12 +263,24 @@ li {
 
 @keyframes fail {
    0% {
-      transform: rotateZ(8deg);
+      transform: rotateZ(6deg);
    }
-   25% {
-      transform: rotateZ(-8deg);
+   33% {
+      transform: rotateZ(-6deg);
    }
-   50% {
+   66% {
+      transform: rotateZ(6deg);
+   }
+   100% {
       transform: rotateZ(0);
+   }
+}
+
+@keyframes fadeout {
+   0% {
+      transform: scale(0);
+   }
+   100% {
+      transform: scale(1);
    }
 }
