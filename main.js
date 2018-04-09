@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
    var item = [];
    var counter = 0;
    var moves = 0;
-   var stars = [];
+   var timerRunning = 0;
+   var time = 0;
 
    var gameBoard = document.getElementById("memory-game-board");
    var refresh = document.getElementById("refresh");
@@ -34,8 +35,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
    var movesId = document.getElementById("moves");
    var btnId = document.getElementById("btn");
    var closeId = document.getElementById("close");
+   var timeId = document.getElementById("time");
    var movesCounter = document.getElementById("movesCounter");
    var timerCounter = document.getElementById("timer");
+   var starsCounter = document.getElementById("stars-container");
+   var fullStar = '<i class="fas fa-star"></i>';
+   var emptyStar = '<i class="far fa-star"></i>';
 
 
    // *****************************************************************
@@ -65,9 +70,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
       item = [];
       moves = 0;
       counter = 0;
-      stars = [];
+      time = 0;
+      timerrunning = 0;
       movesCounter.innerHTML = "0 moves";
       timerCounter.innerHTML = "00:00";
+      starsCounter.innerHTML = fullStar + fullStar + fullStar;
    }
    memoryGameBoard();
    // *****************************************************************
@@ -108,7 +115,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             match = [];
             item = [];
             if (counter == iconsArray.length) {
-               popupModal();
+               setTimeout(function() {
+                  popupModal();
+               }, 1500);
             }
          } else {
             setTimeout(function() {
@@ -147,8 +156,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
    function popupModal() {
       bodyId.style.display = "none";
       modalId.style.display = "inline";
-      scoreId.innerHTML = "Your score was";
       movesId.innerHTML = 'You did it in <span class=\"strong\">' + moves + '</span> moves.';
+      if (moves < 16) {
+         console.log("this modal is working");
+         scoreId.innerHTML = "Your score was " + fullStar + fullStar + fullstar;
+      } else if (moves > 15 && moves < 21) {
+         scoreId.innerHTML = "Your score was " + fullStar + fullStar + emptyStar;
+      } else {
+         scoreId.innerHTML = "Your score was " + fullStar + emptyStar + emptyStar;
+      }
    }
    // CLOSING OF MODAL AND/OR STARTING A NEW GAME
    function closeModal() {
@@ -165,39 +181,72 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
    // *****************************************************************
-   // MOVES FUNCTION - COUNTING THE MOVES AND UPDATING THE stars
+   // MOVES FUNCTION - COUNTING THE MOVES AND UPDATING THE STARS
    function gameMoves(element) {
       movesCounter.innerHTML = moves + " moves";
-      if (moves <= 16) {
-
+      if (moves == 16) {
+         starsCounter.innerHTML = fullStar + fullStar + emptyStar;
+      }
+      if (moves == 21) {
+         starsCounter.innerHTML = fullStar + emptyStar + emptyStar;
       }
    }
-
-   // <i class="star-1 fas fa-star"></i>
-   // <i class="star-2 fas fa-star"></i>
-   // <i class="star-3 fas fa-star"></i>
-   // <i class="far fa-star"></i>
    // *****************************************************************
 
 
    // *****************************************************************
    // TIMER FUNCTION
+   // function timer() {
+   //    if (timerRunning == 0) {
+   //       timerRunning++;
+   //       setTimeout(function() {
+   //          time++;
+   //          var mins = Math.floor(time / 10 / 60);
+   //          var seconds = Math.floor(time / 10);
+   //          if (mins < 10) {
+   //             mins = "0" + mins;
+   //          }
+   //          if (seconds < 10) {
+   //             seconds = "0" + seconds;
+   //          }
+   //          timerCounter.innerHTML = mins + ":" + seconds;
+   //          if (counter == iconsArray.length) {
+   //             timeId.innerHTML = "With a time of <span class='strong' " + mins + ":" + seconds + " </span";
+   //          }
+   //          timer();
+   //       }, 500);
+   //    }
+   // }
+
+
    function timer() {
-      var time = 0;
-      setTimeout(function() {
-         time++;
-         var mins = Math.floor(time / 10 / 60);
-         var seconds = Math.floor(time / 10);
-         if (mins < 10) {
-            mins = "0" + mins;
+      if (timerRunning == 0) {
+         timerRunning++;
+         setInterval(addTime, 1000);
+         var secs = 0;
+         var mins = "0" + 0;
+
+         function addTime() {
+            if (secs < 59) {
+               secs++;
+               if (secs < 10) {
+                  secs = "0" + secs;
+               }
+            } else {
+               secs = 0;
+               mins++;
+               if (mins < 10) {
+                  mins = "0" + mins;
+               }
+            }
+            timerCounter.innerHTML = mins + ":" + secs;
+            if (counter == iconsArray.length) {
+               timeId.innerHTML = "With a time of <span class='strong'> " + mins + ":" + secs + " </span>";
+            }
          }
-         if (seconds < 10) {
-            seconds = "0" + seconds;
-         }
-         timerCounter.innerHTML = mins + ":" + seconds;
-      }, 500);
+      }
    }
-   timer();
+
    // *****************************************************************
 
 });

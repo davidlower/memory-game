@@ -22,6 +22,7 @@
             <h1 class="modal-title">Well done</h1>
             <p>Congratulations you completed the game</p>
             <p id="moves"></p>
+            <p id="time"></p>
             <p id="score"></p>
             <button id="btn">Play again</button>
          </div>
@@ -35,18 +36,15 @@
       <div class="icons-container">
          <ul>
             <!-- STARS & MOVES COUNTER-->
-            <li class="stars-container">
-               <i class="star-1 fas fa-star"></i>
-               <i class="star-2 fas fa-star"></i>
-               <i class="star-3 fas fa-star"></i>
-               <!-- <i class="far fa-star"></i> -->
-               <p id="movesCounter">0 moves</p>
+            <li>
+               <div id="stars-container"></div>
+               <p id="movesCounter"></p>
             </li>
 
             <!-- TIMER -->
             <li class="stopwatch-container">
                <i class="fas fa-stopwatch"></i>
-               <p id="timer">00:00</p>
+               <p id="timer"></p>
             </li>
 
             <!-- REFRESH BUTTON -->
@@ -57,23 +55,8 @@
          </ul>
       </div>
 
-
       <!-- BOARD GAME AND CARDS - JAVASCRIPT GENERATED -->
-      <div id="memory-game-board">
-
-         <!-- <div class="card">
-            <div class="front"></div>
-            <div class="back">
-               <i class="fas fa-bomb card-3"></i>
-            </div>
-         </div> -->
-         <!-- <div class="card">
-            <i class="fas fa-bomb card-3"></i>
-         </div> -->
-
-      </div>
-
-
+      <div id="memory-game-board"></div>
 
    </div>
 
