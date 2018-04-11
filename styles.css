@@ -16,7 +16,9 @@ html {
 
 body {
    background-image: linear-gradient(to bottom right, #00ceba, #b07ed0);
+   background-attachment: fixed;
 }
+
 
 #body-wrapper {
    position: relative;
@@ -29,7 +31,7 @@ body {
 /* ********************** TOP HERO SECTION - TITLE - TIMER - REFRESH ************************* */
 
 h1 {
-   margin: 75px 0;
+   margin: 75px 0 50px;
 
    text-align: center;
 
@@ -82,13 +84,13 @@ li {
 #memory-game-board {
    display: grid;
 
-   max-width: 960px;
-   margin: 75px auto;
+   max-width: 885px;
+   margin: 50px auto 75px;
    padding: 30px;
 
-   grid-template-columns: repeat(4, minmax(180px, 220px));
-   grid-template-rows: repeat(4, minmax(180px, 220px));
-   grid-gap: 35px;
+   grid-template-columns: repeat(4, minmax(140px, 190px));
+   grid-template-rows: repeat(4, minmax(160px, 200px));
+   grid-gap: 25px;
 }
 
 /* ********************** CARD STYLES ************************* */
@@ -281,5 +283,99 @@ li {
    }
    100% {
       transform: scale(1);
+   }
+}
+
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 700px) {
+   html {
+      font-size: 14px;
+   }
+   h1 {
+      font-size: 3.6rem;
+      margin: 50px auto;
+   }
+   ul {
+      width: 90%;
+   }
+   li {
+      width: 80px;
+   }
+
+   #memory-game-board {
+      width: 90%;
+      margin: 50px auto;
+      padding: 0;
+
+      grid-template-columns: repeat(4, minmax(40px, 190px));
+      grid-template-rows: repeat(4, minmax(40px, 120px));
+      grid-gap: 15px;
+   }
+   #memory-game-board i {
+      font-size: 1.9rem;
+   }
+}
+
+@media screen and (max-width: 450px) {
+   html {
+      font-size: 13px;
+   }
+   h1 {
+      font-size: 2.8rem;
+      margin: 30px auto;
+   }
+   ul {
+      width: 90%;
+   }
+   li {
+      width: 32%;
+   }
+   .icons-container p {
+      padding: 0;
+   }
+   #memory-game-board {
+      width: 90%;
+      margin: 50px auto;
+      padding: 0;
+
+      grid-template-columns: repeat(4, minmax(40px, 90px));
+      grid-template-rows: repeat(4, minmax(40px, 75px));
+      grid-gap: 15px;
+   }
+   #memory-game-board i {
+      font-size: 1.7rem;
+   }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 812px) and (orientation: landscape) {
+   html {
+      font-size: 13px;
+   }
+   h1 {
+      font-size: 2.8rem;
+      margin: 30px auto;
+   }
+   ul {
+      width: 90%;
+   }
+   li {
+      width: 75px;
+   }
+   .icons-container p {
+      padding: 0;
+   }
+   #memory-game-board {
+      width: 435px;
+      margin: 50px auto;
+      padding: 0;
+
+      grid-template-columns: repeat(4, minmax(40px, 90px));
+      grid-template-rows: repeat(4, minmax(30px, 75px));
+      grid-gap: 15px;
+   }
+   #memory-game-board i {
+      font-size: 1.4rem;
    }
 }

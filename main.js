@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
    // *****************************************************************
-   // SHUFFLE FUCNTION - to randomise the various icons used in the game
+   // SHUFFLE FUNCTION - to randomise the various icons used in the game
    Array.prototype.shuffle = function() {
       for (i = 1; i < this.length; i++) {
          random = Math.round(Math.random() * i);
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       iconsArray.shuffle();
       for (i = 0; i < iconsArray.length; i++) {
          htmlCode += '<div class="card card' + iconsArray[i][0] + '"><i class="fas ' + iconsArray[i][1] + '"></i></div>';
-      }
+      } //everything below is just resetting everything - clearing the game board
       gameBoard.innerHTML = htmlCode;
       match = [];
       item = [];
@@ -86,9 +86,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
       gameBoard.addEventListener("click", function(e) {
          if (e.target.classList.contains("card")) {
             e.target.classList.add("selected");
-            matchCards(e.target);
-            timer(e.target);
-            gameMoves(e.target);
+            matchCards(e.target); //triggers the function to match cards
+            if (timerRunning == 0) { //checking if timer function is running
+               timerRunning++;
+               var timeCounter = setInterval(function() {
+                  timer(); //timer function called
+               }, 1000);
+            }
+            gameMoves(e.target); //function for activating the star scoring system
          }
       });
    }
@@ -101,27 +106,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
    function matchCards(element) {
       var cardId = element.classList[1];
       if (item.length == 0) {
-         item.push(1);
-         match.push(cardId);
+         item.push(1); // array to monitor how many cards are active
+         match.push(cardId); // array to collect id of card to match
       } else if (item.length == 1) {
          item.push(1);
          match.push(cardId);
-         moves++;
+         moves++; // monitors how many moves the player has made
          if (match[0] == match[1]) {
             setTimeout(function() {
-               success();
+               success(); //SUCCESS FUNCTION when two cards match
             }, 500);
-            counter += 2;
+            counter += 2; // records the matched cards - to know when the game finishes
             match = [];
             item = [];
             if (counter == iconsArray.length) {
                setTimeout(function() {
-                  popupModal();
+                  popupModal(); //POPUP MODAL for when the game is complete
                }, 1500);
             }
          } else {
             setTimeout(function() {
-               fail();
+               fail(); //FAIL FUNCTION when two cards don't match
             }, 500);
             match = [];
             item = [];
@@ -130,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
    }
    // FUNCTION WHEN CARDS MATCH
    function success() {
-      var selected = document.querySelectorAll(".selected");
+      var selected = document.querySelectorAll(".selected"); // the selected class is a marker to toggle on/off
       selected[0].classList.add("success");
       selected[1].classList.add("success");
       setTimeout(function() {
@@ -157,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       bodyId.style.display = "none";
       modalId.style.display = "inline";
       movesId.innerHTML = 'You did it in <span class=\"strong\">' + moves + '</span> moves.';
+      // THE STAR SYSTEM - CHANGING FROM SOLID TO EMPTY
       if (moves < 16) {
          console.log("this modal is working");
          scoreId.innerHTML = "Your score was " + fullStar + fullStar + fullstar;
@@ -195,58 +201,62 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
    // *****************************************************************
-   // TIMER FUNCTION
+   // TIMER FUNCTION - TIMER FOR THE GAME THAT IS LOGGED AT THE END ON THE MODAL
+   var secs = 0;
+   var mins = "0" + 0;
+
+   function timer() {
+      if (secs < 59) {
+         secs++;
+         if (secs < 10) {
+            secs = "0" + secs;
+         }
+      } else {
+         secs = 0;
+         mins++;
+         if (mins < 10) {
+            mins = "0" + mins;
+         }
+      }
+      timerCounter.innerHTML = mins + ":" + secs;
+      if (counter == iconsArray.length) {
+         timeId.innerHTML = "With a time of <span class='strong'> " + mins + ":" + secs + " </span>";
+      }
+   }
+   // STOP TIMER FUNCTION
+   function stopTimer() {
+      clearInterval(timeCounter);
+   }
+
    // function timer() {
    //    if (timerRunning == 0) {
    //       timerRunning++;
-   //       setTimeout(function() {
-   //          time++;
-   //          var mins = Math.floor(time / 10 / 60);
-   //          var seconds = Math.floor(time / 10);
-   //          if (mins < 10) {
-   //             mins = "0" + mins;
+   //       setInterval(addTime, 1000);
+   //       var secs = 0;
+   //       var mins = "0" + 0;
+   //
+   //       function addTime() {
+   //          if (secs < 59) {
+   //             secs++;
+   //             if (secs < 10) {
+   //                secs = "0" + secs;
+   //             }
+   //          } else {
+   //             secs = 0;
+   //             mins++;
+   //             if (mins < 10) {
+   //                mins = "0" + mins;
+   //             }
    //          }
-   //          if (seconds < 10) {
-   //             seconds = "0" + seconds;
-   //          }
-   //          timerCounter.innerHTML = mins + ":" + seconds;
+   //          timerCounter.innerHTML = mins + ":" + secs;
    //          if (counter == iconsArray.length) {
-   //             timeId.innerHTML = "With a time of <span class='strong' " + mins + ":" + seconds + " </span";
+   //             timeId.innerHTML = "With a time of <span class='strong'> " + mins + ":" + secs + " </span>";
    //          }
-   //          timer();
-   //       }, 500);
+   //       }
    //    }
    // }
-
-
-   function timer() {
-      if (timerRunning == 0) {
-         timerRunning++;
-         setInterval(addTime, 1000);
-         var secs = 0;
-         var mins = "0" + 0;
-
-         function addTime() {
-            if (secs < 59) {
-               secs++;
-               if (secs < 10) {
-                  secs = "0" + secs;
-               }
-            } else {
-               secs = 0;
-               mins++;
-               if (mins < 10) {
-                  mins = "0" + mins;
-               }
-            }
-            timerCounter.innerHTML = mins + ":" + secs;
-            if (counter == iconsArray.length) {
-               timeId.innerHTML = "With a time of <span class='strong'> " + mins + ":" + secs + " </span>";
-            }
-         }
-      }
-   }
-
    // *****************************************************************
+
+   //
 
 });
