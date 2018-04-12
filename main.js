@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
    var time = 0;
 
    var gameBoard = document.getElementById("memory-game-board");
+   var target = "";
    var refresh = document.getElementById("refresh");
    var bodyId = document.getElementById("body-wrapper");
    var modalId = document.getElementById("modal-wrapper");
@@ -41,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
    var starsCounter = document.getElementById("stars-container");
    var fullStar = '<i class="fas fa-star"></i>';
    var emptyStar = '<i class="far fa-star"></i>';
-
+   var intervalCounter = "";
 
    // *****************************************************************
    // SHUFFLE FUNCTION - to randomise the various icons used in the game
@@ -75,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       movesCounter.innerHTML = "0 moves";
       timerCounter.innerHTML = "00:00";
       starsCounter.innerHTML = fullStar + fullStar + fullStar;
+      stopTimer();
    }
    memoryGameBoard();
    // *****************************************************************
@@ -82,22 +84,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
    // *****************************************************************
    // FLIP CARD AND ASSIGNING A CLICK EVENT
-   function flipCard() {
-      gameBoard.addEventListener("click", function(e) {
-         if (e.target.classList.contains("card")) {
-            e.target.classList.add("selected");
-            matchCards(e.target); //triggers the function to match cards
-            if (timerRunning == 0) { //checking if timer function is running
+   gameBoard.addEventListener("click", flipCard);
+
+   function flipCard(e) {
+      target = e.target;
+      if (target.classList.contains("card")) {
+         if (target.classList.contains("selected")) {
+            gameBoard.removeEventListener("click", flipCard); // I remove the event to stop double clicks
+            gameBoard.addEventListener("click", flipCard);
+         } else {
+            target.classList.add("selected");
+            matchCards(target); // triggers the function to match cards
+            if (timerRunning == 0) { // checking if timer function is running
                timerRunning++;
-               var timeCounter = setInterval(function() {
-                  timer(); //timer function called
+               intervalCounter = setInterval(function() {
+                  timer(); // timer function called
                }, 1000);
             }
-            gameMoves(e.target); //function for activating the star scoring system
+            gameMoves(target); // function for activating the star scoring system
          }
-      });
+      }
    }
-   flipCard();
    // *****************************************************************
 
 
@@ -164,8 +171,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       movesId.innerHTML = 'You did it in <span class=\"strong\">' + moves + '</span> moves.';
       // THE STAR SYSTEM - CHANGING FROM SOLID TO EMPTY
       if (moves < 16) {
-         console.log("this modal is working");
-         scoreId.innerHTML = "Your score was " + fullStar + fullStar + fullstar;
+         scoreId.innerHTML = "Your score was " + fullStar + fullStar + fullStar;
       } else if (moves > 15 && moves < 21) {
          scoreId.innerHTML = "Your score was " + fullStar + fullStar + emptyStar;
       } else {
@@ -220,43 +226,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
       timerCounter.innerHTML = mins + ":" + secs;
       if (counter == iconsArray.length) {
+         stopTimer();
          timeId.innerHTML = "With a time of <span class='strong'> " + mins + ":" + secs + " </span>";
       }
    }
    // STOP TIMER FUNCTION
    function stopTimer() {
-      clearInterval(timeCounter);
+      clearInterval(intervalCounter);
    }
-
-   // function timer() {
-   //    if (timerRunning == 0) {
-   //       timerRunning++;
-   //       setInterval(addTime, 1000);
-   //       var secs = 0;
-   //       var mins = "0" + 0;
-   //
-   //       function addTime() {
-   //          if (secs < 59) {
-   //             secs++;
-   //             if (secs < 10) {
-   //                secs = "0" + secs;
-   //             }
-   //          } else {
-   //             secs = 0;
-   //             mins++;
-   //             if (mins < 10) {
-   //                mins = "0" + mins;
-   //             }
-   //          }
-   //          timerCounter.innerHTML = mins + ":" + secs;
-   //          if (counter == iconsArray.length) {
-   //             timeId.innerHTML = "With a time of <span class='strong'> " + mins + ":" + secs + " </span>";
-   //          }
-   //       }
-   //    }
-   // }
    // *****************************************************************
-
-   //
 
 });

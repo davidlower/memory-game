@@ -1,4 +1,5 @@
 * {
+   -webkit-box-sizing: border-box;
    box-sizing: border-box;
    margin: 0;
    padding: 0;
@@ -15,6 +16,7 @@ html {
 }
 
 body {
+   background-image: -webkit-gradient(linear, left top, right bottom, from(#00ceba), to(#b07ed0));
    background-image: linear-gradient(to bottom right, #00ceba, #b07ed0);
    background-attachment: fixed;
 }
@@ -34,18 +36,21 @@ h1 {
    margin: 75px 0 50px;
 
    text-align: center;
+   letter-spacing: 0.1px;
 
    color: var(--s-color);
 
    font-size: 4rem;
    font-weight: 500;
-   letter-spacing: 0.1px;
-
 }
 
 .letter-flip {
    display: inline-block;
+
+   -webkit-animation: letterflip 6s infinite;
    animation: letterflip 6s infinite;
+
+   -webkit-transform-style: preserve-3d;
    transform-style: preserve-3d;
 }
 
@@ -57,6 +62,7 @@ ul {
    display: inline-block;
 
    width: 100%;
+
    list-style-type: none;
 
    color: var(--s-color);
@@ -66,6 +72,7 @@ ul {
 
 li {
    display: inline-block;
+
    width: 100px;
 }
 
@@ -74,9 +81,10 @@ li {
 }
 
 .icons-container p {
-   font-weight: 200;
-   font-size: 0.9rem;
    padding: 9px 0;
+
+   font-size: 0.9rem;
+   font-weight: 200;
 }
 
 /* ********************** BOARD GAME SETUP ************************* */
@@ -107,33 +115,43 @@ li {
    -moz-user-select: none;
    -ms-user-select: none;
    user-select: none;
+   -webkit-transition: -webkit-transform 0.7s ease;
+   transition: -webkit-transform 0.7s ease;
    transition: transform 0.7s ease;
+   transition: transform 0.7s ease, -webkit-transform 0.7s ease;
 
    border-radius: 15px;
    background-color: var(--p-color);
 
+   -webkit-transform-style: preserve-3d;
    transform-style: preserve-3d;
 }
 
 .selected {
+   -webkit-transform: rotateY(-180deg);
    transform: rotateY(-180deg);
 }
 
 .success {
+   -webkit-transform: rotateY(-180deg);
+   transform: rotateY(-180deg);
+   -webkit-animation: success 0.3s;
    animation: success 0.3s;
 
    background-color: var(--success);
-   transform: rotateY(-180deg);
 }
 
 .fail {
+   -webkit-animation: fail 0.3s;
    animation: fail 0.3s;
 
    background-color: var(--fail);
 }
 
 .fail, .success {
+   -webkit-animation-delay: 0.3s;
    animation-delay: 0.3s;
+   -webkit-animation-iteration-count: 1;
    animation-iteration-count: 1;
 }
 
@@ -144,57 +162,73 @@ li {
    top: 50%;
    left: 50%;
 
+   -webkit-transform: translate(-50%, -50%) rotateY(180deg);
    transform: translate(-50%, -50%) rotateY(180deg);
 
    color: var(--s-color);
 
    font-size: 2.8rem;
 
+   -webkit-backface-visibility: hidden;
    backface-visibility: hidden;
 }
 
 /* ********************** MODAL AND POPUP CONGRATULATION SCREEN ************************* */
 
 #modal-wrapper {
-   height: 100vh;
-   width: 100vw;
-   background-image: linear-gradient(to bottom right, #00ceba, #b07ed0);
-   text-align: center;
-   color: var(--s-color);
    display: none;
+
+   width: 100vw;
+   height: 100vh;
+
+   text-align: center;
+
+   color: var(--s-color);
+   background-image: -webkit-gradient(linear, left top, right bottom, from(#00ceba), to(#b07ed0));
+   background-image: linear-gradient(to bottom right, #00ceba, #b07ed0);
 }
 
 .modal-container {
-   background-color: rgba(255, 255, 255, 0.3);
-   height: 80vh;
-   width: 80vw;
-   margin: 10vh auto;
    position: relative;
-   border-radius: 25px;
+
+   width: 80vw;
+   height: 80vh;
+   margin: 10vh auto;
+
+   -webkit-animation: fadeout 0.9s;
    animation: fadeout 0.9s;
+   -webkit-animation-iteration-count: 1;
    animation-iteration-count: 1;
+
+   border-radius: 25px;
+   background-color: rgba(255, 255, 255, 0.3);
 }
 
 #close {
    position: absolute;
-   color: var(--s-color);
    top: 25px;
    right: 25px;
+
+   color: var(--s-color);
+
    font-size: 1.4rem;
 }
 
 #close:hover {
-   color: rgba(255, 255, 255, 0.3);
    cursor: pointer;
+
+   color: rgba(255, 255, 255, 0.3);
 }
 
 #close:active {
+   -webkit-transform: translateY(1px);
    transform: translateY(1px);
 }
 
 .modal-title {
    margin: 0;
    padding: 11% 0;
+
    line-height: 1em;
 }
 
@@ -202,26 +236,33 @@ li {
    position: absolute;
    top: 47%;
    left: 50%;
+
+   -webkit-transform: translate(-50%, -50%);
    transform: translate(-50%, -50%);
+
    line-height: 1.6em;
 }
 
 .strong {
    color: var(--p-color);
+
    font-weight: 500;
 }
 
 #btn {
    margin: 13% 0;
    padding: 15px 60px;
+
+   cursor: pointer;
+
    color: var(--s-color);
-   background-color: transparent;
    border: solid 1px var(--s-color);
-   outline: none;
    border-radius: 15px;
+   outline: none;
+   background-color: transparent;
+
    font-family: var(--font);
    font-size: 1rem;
-   cursor: pointer;
 }
 
 #btn:hover {
@@ -230,24 +271,64 @@ li {
 }
 
 #btn:active {
+   -webkit-transform: translateY(1px);
    transform: translateY(1px);
 }
 
 /* ********************** KEYFRAMES AND ANIMATIONS ************************* */
 
-@keyframes letterflip {
+@-webkit-keyframes letterflip {
    0% {
+      -webkit-transform: rotateY(0);
       transform: rotateY(0);
    }
    70% {
+      -webkit-transform: rotateY(180deg);
       transform: rotateY(180deg);
    }
    80% {
+      -webkit-transform: rotateY(180deg);
       transform: rotateY(180deg);
+
       color: var(--p-color);
    }
    100% {
+      -webkit-transform: rotateY(360deg);
       transform: rotateY(360deg);
+   }
+}
+
+@keyframes letterflip {
+   0% {
+      -webkit-transform: rotateY(0);
+      transform: rotateY(0);
+   }
+   70% {
+      -webkit-transform: rotateY(180deg);
+      transform: rotateY(180deg);
+   }
+   80% {
+      -webkit-transform: rotateY(180deg);
+      transform: rotateY(180deg);
+
+      color: var(--p-color);
+   }
+   100% {
+      -webkit-transform: rotateY(360deg);
+      transform: rotateY(360deg);
+   }
+}
+
+
+
+@-webkit-keyframes success {
+   0% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
+   }
+   50% {
+      -webkit-transform: scale(1.15);
+      transform: scale(1.15);
    }
 }
 
@@ -255,33 +336,71 @@ li {
 
 @keyframes success {
    0% {
+      -webkit-transform: scale(1);
       transform: scale(1);
    }
    50% {
+      -webkit-transform: scale(1.15);
       transform: scale(1.15);
+   }
+}
+
+@-webkit-keyframes fail {
+   0% {
+      -webkit-transform: rotateZ(6deg);
+      transform: rotateZ(6deg);
+   }
+   33% {
+      -webkit-transform: rotateZ(-6deg);
+      transform: rotateZ(-6deg);
+   }
+   66% {
+      -webkit-transform: rotateZ(6deg);
+      transform: rotateZ(6deg);
+   }
+   100% {
+      -webkit-transform: rotateZ(0);
+      transform: rotateZ(0);
    }
 }
 
 @keyframes fail {
    0% {
+      -webkit-transform: rotateZ(6deg);
       transform: rotateZ(6deg);
    }
    33% {
+      -webkit-transform: rotateZ(-6deg);
       transform: rotateZ(-6deg);
    }
    66% {
+      -webkit-transform: rotateZ(6deg);
       transform: rotateZ(6deg);
    }
    100% {
+      -webkit-transform: rotateZ(0);
       transform: rotateZ(0);
+   }
+}
+
+@-webkit-keyframes fadeout {
+   0% {
+      -webkit-transform: scale(0);
+      transform: scale(0);
+   }
+   100% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
    }
 }
 
 @keyframes fadeout {
    0% {
+      -webkit-transform: scale(0);
       transform: scale(0);
    }
    100% {
+      -webkit-transform: scale(1);
       transform: scale(1);
    }
 }
@@ -294,8 +413,9 @@ li {
       font-size: 14px;
    }
    h1 {
-      font-size: 3.6rem;
       margin: 50px auto;
+
+      font-size: 3.6rem;
    }
    ul {
       width: 90%;
@@ -303,7 +423,6 @@ li {
    li {
       width: 80px;
    }
-
    #memory-game-board {
       width: 90%;
       margin: 50px auto;
@@ -323,8 +442,9 @@ li {
       font-size: 13px;
    }
    h1 {
-      font-size: 2.8rem;
       margin: 30px auto;
+
+      font-size: 2.8rem;
    }
    ul {
       width: 90%;
@@ -354,8 +474,9 @@ li {
       font-size: 13px;
    }
    h1 {
-      font-size: 2.8rem;
       margin: 30px auto;
+
+      font-size: 2.8rem;
    }
    ul {
       width: 90%;
