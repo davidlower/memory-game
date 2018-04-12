@@ -167,7 +167,7 @@ li {
 
    color: var(--s-color);
 
-   font-size: 2.8rem;
+   font-size: 2.5rem;
 
    -webkit-backface-visibility: hidden;
    backface-visibility: hidden;
@@ -430,7 +430,6 @@ li {
 
       grid-template-columns: repeat(4, minmax(40px, 190px));
       grid-template-rows: repeat(4, minmax(40px, 120px));
-      grid-gap: 15px;
    }
    #memory-game-board i {
       font-size: 1.9rem;
@@ -462,7 +461,6 @@ li {
 
       grid-template-columns: repeat(4, minmax(40px, 90px));
       grid-template-rows: repeat(4, minmax(40px, 75px));
-      grid-gap: 15px;
    }
    #memory-game-board i {
       font-size: 1.7rem;
@@ -494,7 +492,6 @@ li {
 
       grid-template-columns: repeat(4, minmax(40px, 90px));
       grid-template-rows: repeat(4, minmax(30px, 75px));
-      grid-gap: 15px;
    }
    #memory-game-board i {
       font-size: 1.4rem;
